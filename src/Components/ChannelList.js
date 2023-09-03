@@ -3,6 +3,7 @@ import ChannelPlayer from './ChannelPlayer';
 const ChannelList = ({ channels }) => {
     const [selectedChannel, setSelectedChannel] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    console.log(channels)
 
     const handleChannelButtonClick = (channel) => {
       // Set the selected channel when a button is clicked
@@ -19,9 +20,8 @@ sessionStorage.setItem('clearKey',channel.clearKey)
     <div className="flex flex-wrap justify-center">
       {channels.map((channel, index) => (
         <div className="w-1/4 p-4" key={index}>
-          <div key={index} className="group cursor-pointer relative">
+          <div  className="group cursor-pointer relative">
             <img
-            key={index}
               src="https://staticg.sportskeeda.com/editor/2021/07/e4ae5-16274798110941-800.jpg"
               alt={channel.channelName}
               onClick={() => handleChannelButtonClick(channel)}
