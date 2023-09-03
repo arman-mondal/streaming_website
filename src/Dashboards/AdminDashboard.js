@@ -2,6 +2,7 @@ import {React,useState} from "react";
 import Navbar from "../Components/Navbar";
 import axios from "axios";
 import AdminPackageForm from "../Components/AdminPackageForm";
+import { useNavigate } from "react-router-dom";
 function AdminDashboard(){
   
     const[subadminmanager,setsubadminmanager]=useState(true);
@@ -82,6 +83,11 @@ const [formData, setFormData] = useState({
       console.log('Error during registration:', error);
     }
   };
+  const navigate=useNavigate();
+const handlelogout=()=>{
+  localStorage.removeItem('token') 
+  navigate('/login')
+}
 const channelmanagerhandle=()=>{
     setchannelmanager(true)
     setsubadminmanager(false)
@@ -89,7 +95,7 @@ const channelmanagerhandle=()=>{
 
     return(<div className="h-screen w-full">
 
-        <Navbar channelallothandle={handleclicksubadminmanager} secondnavbtnaction={channelmanagerhandle} firstnavbtn="Add Subadmin" secondnavbtn="Add Channel" />
+        <Navbar handlelogout={handlelogout} channelallothandle={handleclicksubadminmanager} secondnavbtnaction={channelmanagerhandle} firstnavbtn="Add Subadmin" secondnavbtn="Add Channel" />
 {
     subadminmanager && <div className="h-screen w-full justify-center flex items-center" >
         <div className="card w-96 bg-base-100 shadow-xl">

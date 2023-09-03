@@ -5,13 +5,18 @@ import axios from "axios";
 import ChannelNameResolver from "../Resolver/channelNameResolver";
 import VideoComp from "../Components/VideoPlayer"
 import ChannelList from "../Components/ChannelList";
+import { useNavigate } from "react-router-dom";
 function UserDashboard(){
     const [user, setUser] = useState('');
     const [selectedChannel, setSelectedChannel] = useState(null);
     const[mypackage,setmypackage]=useState(null);
 const[packageExpiry,setPackageExpiry]=useState(null)
 const[pack,setpack]=useState(null);
-
+const navigate=useNavigate();
+const handlelogout=()=>{
+  localStorage.removeItem('token') 
+  navigate('/login')
+}
 const[channels,setchannels]=useState([]);
   useEffect(() => {
     // Fetch the list of channels assigned to the user (you should have an API endpoint for this)
@@ -56,6 +61,7 @@ console.log(data.channels)
                 {
                     const data=response.data[1]
                     setchannels(data.channels)
+                    console.log(data.channels)
 
                     setpack(data)
                 }
@@ -71,6 +77,7 @@ console.log(data.channels)
         }
 
     }
+
 
 
 
@@ -91,7 +98,7 @@ console.log(data.channels)
 
     return(<div className="w-full h-screen  ">
 
-        <Navbar firstnavbtn="Popular Videos"  secondnavbtn="Recommended for You"/>
+        <Navbar handlelogout={handlelogout} firstnavbtn="Popular Videos"  secondnavbtn="Recommended for You"/>
 <div className="h-full w-full flex justify-center mt-5" >   <div className="artboard artboard-horizontal w-full h-64 ">
 
 
